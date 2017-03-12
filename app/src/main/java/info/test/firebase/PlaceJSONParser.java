@@ -1,5 +1,7 @@
 package info.test.firebase;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,6 +59,7 @@ public class PlaceJSONParser {
         String vicinity="-NA-";
         String latitude="";
         String longitude="";
+        String open = "-NA-";
 
         try {
             // Extracting Place name, if available
@@ -69,13 +72,16 @@ public class PlaceJSONParser {
                 vicinity = jPlace.getString("vicinity");
             }
 
+
             latitude = jPlace.getJSONObject("geometry").getJSONObject("location").getString("lat");
             longitude = jPlace.getJSONObject("geometry").getJSONObject("location").getString("lng");
 
+            Log.i("open", open);
             place.put("place_name", placeName);
             place.put("vicinity", vicinity);
             place.put("lat", latitude);
             place.put("lng", longitude);
+
 
         } catch (JSONException e) {
             e.printStackTrace();

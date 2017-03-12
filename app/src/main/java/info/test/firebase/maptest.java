@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -40,6 +41,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created  on 2/11/2017.
@@ -53,38 +55,39 @@ public class maptest extends FragmentActivity implements
         GoogleMap.OnMapLongClickListener,
         View.OnClickListener {
 
-    //Our Map
-    private GoogleMap mMap;
-
-    //To store longitude and latitude from map
-    private double longitude;
-    private double latitude;
     SupportMapFragment mapFragment;
-    //Buttons
-    private ImageButton buttonSave;
-    private ImageButton buttonCurrent;
-    private ImageButton buttonView;
-    boolean vis ;
+    boolean vis;
     ImageButton listornot;
     FrameLayout list;
     ProgressDialog progressDialog;
     RecyclerView recyclerView;
+    Boolean click;
+    //Our Map
+    private GoogleMap mMap;
+    //To store longitude and latitude from map
+    private double longitude;
+    private double latitude;
+    //Buttons
+    private ImageButton buttonSave;
+    private ImageButton buttonCurrent;
+    private ImageButton buttonView;
+    private ImageButton buttonViewhus;
     private ArrayList countries;
     //Google ApiClient
     private GoogleApiClient googleApiClient;
-
+    private String TAG = "na";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-         mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         //Progress bar Intilization
         progressDialog = new ProgressDialog(this);
-         recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         // recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -98,15 +101,17 @@ public class maptest extends FragmentActivity implements
         //Initializing views and adding onclick listeners
         buttonSave = (ImageButton) findViewById(R.id.buttonSave);
         buttonCurrent = (ImageButton) findViewById(R.id.buttonCurrent);
-        list =(FrameLayout)findViewById(R.id.List);
+        list = (FrameLayout) findViewById(R.id.List);
 
-        listornot =(ImageButton)findViewById(R.id.listornot);
-
+        listornot = (ImageButton) findViewById(R.id.listornot);
+        buttonViewhus = (ImageButton) findViewById(R.id.buttonHosp);
         buttonView = (ImageButton) findViewById(R.id.buttonView);
         buttonSave.setOnClickListener(this);
         buttonCurrent.setOnClickListener(this);
         listornot.setOnClickListener(this);
         buttonView.setOnClickListener(this);
+        buttonViewhus.setOnClickListener(this);
+
 
     }
 
@@ -150,7 +155,7 @@ public class maptest extends FragmentActivity implements
     //Function to move the map
     private void moveMap() {
         //String to display current latitude and longitude
-        String msg = latitude + ", "+longitude;
+        String msg = latitude + ", " + longitude;
 
         //Creating a LatLng Object to store Coordinates
         LatLng latLng = new LatLng(latitude, longitude);
@@ -229,26 +234,26 @@ public class maptest extends FragmentActivity implements
 
     @Override
     public void onClick(View v) {
-        if(v == buttonCurrent){
+        if (v == buttonCurrent) {
+            click = false;
             listornot.setVisibility(View.GONE);
             getCurrentLocation();
             moveMap();
             list.setVisibility(View.GONE);
             mapFragment.getView().setVisibility(View.VISIBLE);
-        }else if(v == buttonSave)
-        {
+        } else if (v == buttonSave) {
             listornot.setVisibility(View.VISIBLE);
             // int selectedPosition = mSprPlaceType.getSelectedItemPosition();
             String type = "atm";//mPlaceType[selectedPosition];
-
+            click = true;
             StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
             sb.append("location=" + latitude + "," + longitude);
             sb.append("&radius=500");
             sb.append("&types=" + type);
             sb.append("&sensor=true");
             sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
-            Toast.makeText(this,latitude+","+longitude,Toast.LENGTH_SHORT).show();
-            Log.i("url", String.valueOf(sb));
+            Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
+            Log.println(Log.INFO, "url", String.valueOf(sb));
             // Creating a new non-ui thread task to download json data
             PlacesTask placesTask = new PlacesTask();
 
@@ -256,10 +261,12 @@ public class maptest extends FragmentActivity implements
             progressDialog.show();
             progressDialog.setMessage("Gettting Atm data");
             placesTask.execute(sb.toString());
+
             initViews();
 
-        }else if(v == listornot) {
+        } else if (v == listornot) {
             {
+                click = false;
                 if (vis) {
                     mapFragment.getView().setVisibility(View.GONE);
                     listornot.setImageResource(R.drawable.ic_map);
@@ -272,8 +279,8 @@ public class maptest extends FragmentActivity implements
                     vis = true;
                 }
             }
-        }else if(v == buttonView)
-        {
+        } else if (v == buttonView) {
+            click = false;
             listornot.setVisibility(View.VISIBLE);
             String type = "restaurant";//mPlaceType[selectedPosition];
 
@@ -283,7 +290,7 @@ public class maptest extends FragmentActivity implements
             sb.append("&types=" + type);
             sb.append("&sensor=true");
             sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
-            Toast.makeText(this,latitude+","+longitude,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
             Log.i("url", String.valueOf(sb));
             // Creating a new non-ui thread task to download json data
             PlacesTask placesTask = new PlacesTask();
@@ -294,9 +301,33 @@ public class maptest extends FragmentActivity implements
             placesTask.execute(sb.toString());
 
             initViews();
+        } else if (v == buttonViewhus) {
+            listornot.setVisibility(View.VISIBLE);
+            // int selectedPosition = mSprPlaceType.getSelectedItemPosition();
+            String type = "hospital";//mPlaceType[selectedPosition];
+            click = true;
+            StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+            sb.append("location=" + latitude + "," + longitude);
+            sb.append("&radius=500");
+            sb.append("&types=" + type);
+            sb.append("&sensor=true");
+            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
+            Log.println(Log.INFO, "url", String.valueOf(sb));
+            // Creating a new non-ui thread task to download json data
+            PlacesTask placesTask = new PlacesTask();
+
+            // Invokes the "doInBackground()" method of the class PlaceTask
+            progressDialog.show();
+            progressDialog.setMessage("Gettting Hospital data");
+            placesTask.execute(sb.toString());
+
+            initViews();
+
         }
-        }
-    private void initViews(){
+    }
+
+    private void initViews() {
 
         countries = new ArrayList<>();
 
@@ -306,16 +337,18 @@ public class maptest extends FragmentActivity implements
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(getApplicationContext(), new GestureDetector.SimpleOnGestureListener() {
 
-                @Override public boolean onSingleTapUp(MotionEvent e) {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
                     return true;
                 }
 
             });
+
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
 
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
-                if(child != null && gestureDetector.onTouchEvent(e)) {
+                if (child != null && gestureDetector.onTouchEvent(e)) {
                     int position = rv.getChildAdapterPosition(child);
                     Toast.makeText(getApplicationContext(), (Integer) countries.get(position), Toast.LENGTH_SHORT).show();
                 }
@@ -335,12 +368,14 @@ public class maptest extends FragmentActivity implements
         });
     }
 
-    /** A method to download json data from url */
+    /**
+     * A method to download json data from url
+     */
     private String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
-        try{
+        try {
             URL url = new URL(strUrl);
 
             // Creating an http connection to communicate with url
@@ -354,10 +389,10 @@ public class maptest extends FragmentActivity implements
 
             BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
 
-            StringBuffer sb  = new StringBuffer();
+            StringBuffer sb = new StringBuffer();
 
             String line = "";
-            while( ( line = br.readLine())  != null){
+            while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
 
@@ -365,16 +400,19 @@ public class maptest extends FragmentActivity implements
 
             br.close();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.d("ExceptionDownloadingUrl", e.toString());
-        }finally{
+        } finally {
             iStream.close();
             urlConnection.disconnect();
         }
 
         return data;
     }
-    /** A class, to download Google Places */
+
+    /**
+     * A class, to download Google Places
+     */
     private class PlacesTask extends AsyncTask<String, Integer, String> {
 
         String data = null;
@@ -382,17 +420,17 @@ public class maptest extends FragmentActivity implements
         // Invoked by execute() method of this object
         @Override
         protected String doInBackground(String... url) {
-            try{
+            try {
                 data = downloadUrl(url[0]);
-            }catch(Exception e){
-                Log.d("Background Task",e.toString());
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
             }
             return data;
         }
 
         // Executed after the complete execution of doInBackground() method
         @Override
-        protected void onPostExecute(String result){
+        protected void onPostExecute(String result) {
             ParserTask parserTask = new ParserTask();
 
             // Start parsing the Google places in JSON format
@@ -401,38 +439,42 @@ public class maptest extends FragmentActivity implements
         }
 
     }
-    /** A class to parse the Google Places in JSON format */
-    private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String,String>>>{
+
+    /**
+     * A class to parse the Google Places in JSON format
+     */
+    private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String, String>>> {
 
         JSONObject jObject;
 
         // Invoked by execute() method of this object
         @Override
-        protected List<HashMap<String,String>> doInBackground(String... jsonData) {
+        protected List<HashMap<String, String>> doInBackground(String... jsonData) {
 
             List<HashMap<String, String>> places = null;
             PlaceJSONParser placeJsonParser = new PlaceJSONParser();
 
-            try{
+            try {
                 jObject = new JSONObject(jsonData[0]);
 
                 /** Getting the parsed data as a List construct */
                 places = placeJsonParser.parse(jObject);
 
-            }catch(Exception e){
-                Log.d("Exception",e.toString());
+            } catch (Exception e) {
+                Log.d("Exception", e.toString());
             }
             return places;
         }
 
         // Executed after the complete execution of doInBackground() method
         @Override
-        protected void onPostExecute(List<HashMap<String,String>> list){
-
+        protected void onPostExecute(List<HashMap<String, String>> list) {
+            Random random = new Random();
+            int i;
             // Clears all the existing markers
             mMap.clear();
             countries.clear();
-            for(int i=0;i<list.size();i++){
+            for (i = 0; i < list.size(); i++) {
 
                 // Creating a marker
                 MarkerOptions markerOptions = new MarkerOptions();
@@ -448,10 +490,15 @@ public class maptest extends FragmentActivity implements
 
                 // Getting name
                 String name = hmPlace.get("place_name");
+
                 countries.add(name);
-                Log.i("loop","Add");
+                Log.i("loop", "Add");
+
+                // String open = hmPlace.get("open");
+                //Log.i("open",open);
                 // Getting vicinity
                 String vicinity = hmPlace.get("vicinity");
+
 
                 LatLng latLng = new LatLng(lat, lng);
 
@@ -461,21 +508,37 @@ public class maptest extends FragmentActivity implements
                 // Setting the title for the marker.
                 //This will be displayed on taping the marker
                 markerOptions.title(name + " : " + vicinity);
+                Log.i("v", String.valueOf(i));
+                if (click) {
+                    if (i == list.size() - 3) {
+
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                    } else {
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    }
+
+
+                } else {
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                }
+
 
                 // Placing a marker on the touched position
                 mMap.addMarker(markerOptions);
-                LatLng  MOUNTAIN_VIEW = new LatLng(latitude, longitude);
+
+                LatLng MOUNTAIN_VIEW = new LatLng(latitude, longitude);
 
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(MOUNTAIN_VIEW)      // Sets the center of the map to Mountain View
                         .zoom(16f)                   // Sets the zoom
                         .bearing(2)                // Sets the orientation of the camera to east
                         .tilt(55)              // Sets the tilt of the camera to 30 degrees
-                        .build()
-                        ;                   // Creates a CameraPosition from the builder
+                        .build();                   // Creates a CameraPosition from the builder
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-progressDialog.dismiss();
+                progressDialog.dismiss();
             }
         }
     }
+
+
 }
