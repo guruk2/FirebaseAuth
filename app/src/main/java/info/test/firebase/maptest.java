@@ -508,7 +508,7 @@ public class maptest extends FragmentActivity implements
                 // Setting the title for the marker.
                 //This will be displayed on taping the marker
                 markerOptions.title(name + " : " + vicinity);
-                Log.i("v", String.valueOf(i));
+                Log.i("g", String.valueOf(i));
                 if (click) {
                     if (i == list.size() - 3) {
 
