@@ -41,7 +41,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created  on 2/11/2017.
@@ -305,7 +304,7 @@ public class maptest extends FragmentActivity implements
             listornot.setVisibility(View.VISIBLE);
             // int selectedPosition = mSprPlaceType.getSelectedItemPosition();
             String type = "hospital";//mPlaceType[selectedPosition];
-            click = true;
+            click = false;
             StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
             sb.append("location=" + latitude + "," + longitude);
             sb.append("&radius=500");
@@ -469,7 +468,7 @@ public class maptest extends FragmentActivity implements
         // Executed after the complete execution of doInBackground() method
         @Override
         protected void onPostExecute(List<HashMap<String, String>> list) {
-            Random random = new Random();
+
             int i;
             // Clears all the existing markers
             mMap.clear();
