@@ -41,75 +41,96 @@
         android:visibility="gone"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="bottom"
         android:orientation="vertical">
 
         <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#cc3b60a7"
-            android:orientation="horizontal">
+            android:scrollbars="horizontal">
 
-            <ImageButton
-                android:id="@+id/buttonCurrent"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="13dp"
-                android:background="@drawable/current" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#cc3b60a7"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/buttonSave"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="13dp"
-                android:background="@drawable/atm" />
+                <ImageButton
+                    android:id="@+id/buttonCurrent"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/current" />
 
-
-            <ImageButton
-                 android:id="@+id/buttonView"
-                 android:layout_width="50dp"
-                 android:layout_height="50dp"
-                android:layout_margin="13dp"
-                 android:background="@drawable/restaurant" />
+                <ImageButton
+                    android:id="@+id/buttonSave"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/atm" />
 
 
-            <ImageButton
-                android:id="@+id/buttonHosp"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="13dp"
-                android:background="@drawable/icon_hospital" />
+                <ImageButton
+                    android:id="@+id/buttonView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/restaurant" />
 
-            <ImageButton
-                android:id="@+id/logout"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
 
-                android:layout_margin="13sp"
-                android:background="@drawable/logout" />
+                <ImageButton
+                    android:id="@+id/buttonHosp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/icon_hospital" />
 
-            <ImageButton
-                android:id="@+id/logo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
 
-                android:layout_margin="13sp"
-                android:background="@drawable/logout" />
+                <ImageButton
+                    android:id="@+id/Shopping_mall"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
 
-            <ImageButton
-                android:id="@+id/ogo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                    android:layout_margin="13sp"
+                    android:background="@drawable/shopping" />
 
-                android:layout_margin="13sp"
-                android:background="@drawable/logout" />
+                <ImageButton
+                    android:id="@+id/Petrol_station"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
 
-        </LinearLayout>
+                    android:layout_margin="13sp"
+                    android:background="@drawable/police_station" />
+
+                <ImageButton
+                    android:id="@+id/Bus_stop"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:layout_margin="13sp"
+                    android:background="@drawable/bus" />
+
+                <ImageButton
+                    android:id="@+id/Cafe"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:layout_margin="13sp"
+                    android:background="@drawable/coffee" />
+
+                <ImageButton
+                    android:id="@+id/logout"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:layout_margin="13sp"
+                    android:background="@drawable/logout" />
+
+            </LinearLayout>
+
+
         </HorizontalScrollView>
     </LinearLayout>
 </FrameLayout>

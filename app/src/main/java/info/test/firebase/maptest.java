@@ -67,6 +67,7 @@ public class maptest extends FragmentActivity implements
     RecyclerView recyclerView;
     Boolean click;
     String Client_id = "CPey57Lphu3N8gpYU3M0_MNZ5rh704S0";
+    boolean resturent = false;
     private FirebaseAuth auth;
     //Our Map
     private GoogleMap mMap;
@@ -78,7 +79,7 @@ public class maptest extends FragmentActivity implements
     private ImageButton buttonCurrent;
     private ImageButton buttonView;
     private ImageButton buttonViewhus;
-    private ImageButton logout;
+    private ImageButton logout, Shopping_mall, Petrol_station, Bus_stop, Cafe;
     private ArrayList countries;
     //Google ApiClient
     private GoogleApiClient googleApiClient;
@@ -117,12 +118,21 @@ public class maptest extends FragmentActivity implements
         buttonViewhus = (ImageButton) findViewById(R.id.buttonHosp);
         buttonView = (ImageButton) findViewById(R.id.buttonView);
         logout = (ImageButton) findViewById(R.id.logout);
+        Shopping_mall = (ImageButton) findViewById(R.id.Shopping_mall);
+        Petrol_station = (ImageButton) findViewById(R.id.Petrol_station);
+        Bus_stop = (ImageButton) findViewById(R.id.Bus_stop);
+        Cafe = (ImageButton) findViewById(R.id.Cafe);
         buttonSave.setOnClickListener(this);
         buttonCurrent.setOnClickListener(this);
         listornot.setOnClickListener(this);
         buttonView.setOnClickListener(this);
         buttonViewhus.setOnClickListener(this);
         logout.setOnClickListener(this);
+        Shopping_mall.setOnClickListener(this);
+        Petrol_station.setOnClickListener(this);
+        Bus_stop.setOnClickListener(this);
+        Cafe.setOnClickListener(this);
+
 
 
     }
@@ -258,6 +268,7 @@ public class maptest extends FragmentActivity implements
             // int selectedPosition = mSprPlaceType.getSelectedItemPosition();
             String type = "atm";//mPlaceType[selectedPosition];
             click = true;
+            resturent = false;
             StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
             sb.append("location=" + latitude + "," + longitude);
             sb.append("&radius=500");
@@ -270,6 +281,7 @@ public class maptest extends FragmentActivity implements
             PlacesTask placesTask = new PlacesTask();
 
             // Invokes the "doInBackground()" method of the class PlaceTask
+
             progressDialog.show();
             progressDialog.setMessage("Gettting Atm data");
             placesTask.execute(sb.toString());
@@ -295,7 +307,7 @@ public class maptest extends FragmentActivity implements
             click = false;
             listornot.setVisibility(View.VISIBLE);
             String type = "restaurant";//mPlaceType[selectedPosition];
-
+            resturent = true;
             StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
             sb.append("location=" + latitude + "," + longitude);
             sb.append("&radius=500");
@@ -318,6 +330,7 @@ public class maptest extends FragmentActivity implements
             // int selectedPosition = mSprPlaceType.getSelectedItemPosition();
             String type = "hospital";//mPlaceType[selectedPosition];
             click = false;
+            resturent = false;
             StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
             sb.append("location=" + latitude + "," + longitude);
             sb.append("&radius=500");
@@ -342,6 +355,103 @@ public class maptest extends FragmentActivity implements
             Intent intent = new Intent(maptest.this, LoginActivity.class);
             startActivity(intent);
             finish();
+
+        } else if (v == Shopping_mall) {
+            listornot.setVisibility(View.VISIBLE);
+            // int selectedPosition = mSprPlaceType.getSelectedItemPosition();
+            String type = "shopping_mall";//mPlaceType[selectedPosition];
+            click = false;
+            resturent = false;
+            StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+            sb.append("location=" + latitude + "," + longitude);
+            sb.append("&radius=1000");
+            sb.append("&types=" + type);
+            sb.append("&sensor=true");
+            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
+            Log.println(Log.INFO, "url", String.valueOf(sb));
+            // Creating a new non-ui thread task to download json data
+            PlacesTask placesTask = new PlacesTask();
+
+            // Invokes the "doInBackground()" method of the class PlaceTask
+            progressDialog.show();
+            progressDialog.setMessage("Gettting shopping mall data");
+            placesTask.execute(sb.toString());
+
+            initViews();
+
+        } else if (v == Petrol_station) {
+            listornot.setVisibility(View.VISIBLE);
+            // int selectedPosition = mSprPlaceType.getSelectedItemPosition();
+            String type = "police";//mPlaceType[selectedPosition];
+            click = false;
+            resturent = false;
+            StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+            sb.append("location=" + latitude + "," + longitude);
+            sb.append("&radius=2000");
+            sb.append("&types=" + type);
+            sb.append("&sensor=true");
+            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
+            Log.println(Log.INFO, "url", String.valueOf(sb));
+            // Creating a new non-ui thread task to download json data
+            PlacesTask placesTask = new PlacesTask();
+
+            // Invokes the "doInBackground()" method of the class PlaceTask
+            progressDialog.show();
+            progressDialog.setMessage("Gettting Police data");
+            placesTask.execute(sb.toString());
+
+            initViews();
+
+        } else if (v == Bus_stop) {
+            listornot.setVisibility(View.VISIBLE);
+            // int selectedPosition = mSprPlaceType.getSelectedItemPosition();
+            resturent = false;
+            String type = "bus_station";//mPlaceType[selectedPosition];
+            click = false;
+            StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+            sb.append("location=" + latitude + "," + longitude);
+            sb.append("&radius=500");
+            sb.append("&types=" + type);
+            sb.append("&sensor=true");
+            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
+            Log.println(Log.INFO, "url", String.valueOf(sb));
+            // Creating a new non-ui thread task to download json data
+            PlacesTask placesTask = new PlacesTask();
+
+            // Invokes the "doInBackground()" method of the class PlaceTask
+            progressDialog.show();
+            progressDialog.setMessage("Gettting bus stop data");
+            placesTask.execute(sb.toString());
+
+            initViews();
+
+        } else if (v == Cafe) {
+            listornot.setVisibility(View.VISIBLE);
+            // int selectedPosition = mSprPlaceType.getSelectedItemPosition();
+            String type = "cafe";//mPlaceType[selectedPosition];
+            click = false;
+            resturent = false;
+            StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+            sb.append("location=" + latitude + "," + longitude);
+            sb.append("&radius=1000");
+            sb.append("&types=" + type);
+            sb.append("&sensor=true");
+            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
+            Log.println(Log.INFO, "url", String.valueOf(sb));
+            // Creating a new non-ui thread task to download json data
+            PlacesTask placesTask = new PlacesTask();
+
+            // Invokes the "doInBackground()" method of the class PlaceTask
+            progressDialog.show();
+            progressDialog.setMessage("Gettting cafe data");
+            placesTask.execute(sb.toString());
+
+            initViews();
+
         }
     }
 
@@ -366,41 +476,47 @@ public class maptest extends FragmentActivity implements
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
 
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
+
                 if (child != null && gestureDetector.onTouchEvent(e)) {
                     final int position = rv.getChildAdapterPosition(child);
+                    if (resturent) {
 
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(maptest.this);
-                    alertDialogBuilder.setTitle("Call UBER");
-                    alertDialogBuilder.setMessage("Should i call a UBER ride?");
-                    alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            try {
-                                PackageManager pm = getApplicationContext().getPackageManager();
-                                pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
-                                String uri =
-                                        "uber://?action=setPickup&client_id=CPey57Lphu3N8gpYU3M0_MNZ5rh704S0&pickup=my_location&dropoff[formatted_address]=Bangalore%2C%20Karnataka%2C%20India&&dropoff[latitude]=" + laton.get(position) + "&dropoff[longitude]=" + longon.get(position) + "";
-                                Log.i("loction", "uber://?action=setPickup&client_id=CPey57Lphu3N8gpYU3M0_MNZ5rh704S0&pickup=my_location&dropoff[formatted_address]=Bangalore%2C%20Karnataka%2C%20India&&dropoff[latitude]=" + laton.get(position) + "&dropoff[longitude]=" + longon.get(position) + "");
+                        Intent in = new Intent(getApplicationContext(), Main.class);
+                        startActivity(in);
 
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(uri));
-                                startActivity(intent);
-                            } catch (PackageManager.NameNotFoundException e) {
-                                // No Uber app! Open mobile website.
-                                String url = "https://m.uber.com/sign-up?client_id=CPey57Lphu3N8gpYU3M0_MNZ5rh704S0";
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse(url));
-                                startActivity(i);
+                    } else {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(maptest.this);
+                        alertDialogBuilder.setTitle("Call UBER");
+                        alertDialogBuilder.setMessage("Should i call a UBER ride?");
+                        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    PackageManager pm = getApplicationContext().getPackageManager();
+                                    pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
+                                    String uri =
+                                            "uber://?action=setPickup&client_id=CPey57Lphu3N8gpYU3M0_MNZ5rh704S0&pickup=my_location&dropoff[formatted_address]=Bangalore%2C%20Karnataka%2C%20India&&dropoff[latitude]=" + laton.get(position) + "&dropoff[longitude]=" + longon.get(position) + "";
+                                    Log.i("loction", "uber://?action=setPickup&client_id=CPey57Lphu3N8gpYU3M0_MNZ5rh704S0&pickup=my_location&dropoff[formatted_address]=Bangalore%2C%20Karnataka%2C%20India&&dropoff[latitude]=" + laton.get(position) + "&dropoff[longitude]=" + longon.get(position) + "");
+
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(uri));
+                                    startActivity(intent);
+                                } catch (PackageManager.NameNotFoundException e) {
+                                    // No Uber app! Open mobile website.
+                                    String url = "https://m.uber.com/sign-up?client_id=CPey57Lphu3N8gpYU3M0_MNZ5rh704S0";
+                                    Intent i = new Intent(Intent.ACTION_VIEW);
+                                    i.setData(Uri.parse(url));
+                                    startActivity(i);
+                                }
+
                             }
+                        });
 
-                        }
-                    });
-
-                    alertDialogBuilder.show();
-                    Toast.makeText(getApplicationContext(), countries.get(position).toString(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), laton.get(position).toString(), Toast.LENGTH_SHORT).show();
+                        alertDialogBuilder.show();
+                        Toast.makeText(getApplicationContext(), countries.get(position).toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), laton.get(position).toString(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-
                 return false;
             }
 
@@ -599,3 +715,7 @@ public class maptest extends FragmentActivity implements
 
 
 }
+
+
+
+
