@@ -1,12 +1,16 @@
 package info.test.firebase;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +33,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONObject;
 
@@ -61,6 +66,8 @@ public class maptest extends FragmentActivity implements
     ProgressDialog progressDialog;
     RecyclerView recyclerView;
     Boolean click;
+    String Client_id = "CPey57Lphu3N8gpYU3M0_MNZ5rh704S0";
+    private FirebaseAuth auth;
     //Our Map
     private GoogleMap mMap;
     //To store longitude and latitude from map
@@ -71,14 +78,18 @@ public class maptest extends FragmentActivity implements
     private ImageButton buttonCurrent;
     private ImageButton buttonView;
     private ImageButton buttonViewhus;
+    private ImageButton logout;
     private ArrayList countries;
     //Google ApiClient
     private GoogleApiClient googleApiClient;
     private String TAG = "na";
+    private ArrayList<Double> laton;
+    private ArrayList<Double> longon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
         setContentView(R.layout.map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -105,11 +116,13 @@ public class maptest extends FragmentActivity implements
         listornot = (ImageButton) findViewById(R.id.listornot);
         buttonViewhus = (ImageButton) findViewById(R.id.buttonHosp);
         buttonView = (ImageButton) findViewById(R.id.buttonView);
+        logout = (ImageButton) findViewById(R.id.logout);
         buttonSave.setOnClickListener(this);
         buttonCurrent.setOnClickListener(this);
         listornot.setOnClickListener(this);
         buttonView.setOnClickListener(this);
         buttonViewhus.setOnClickListener(this);
+        logout.setOnClickListener(this);
 
 
     }
@@ -323,6 +336,12 @@ public class maptest extends FragmentActivity implements
 
             initViews();
 
+        } else if (v == logout) {
+            auth.signOut();
+            Log.i("logout", "out");
+            Intent intent = new Intent(maptest.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -348,8 +367,38 @@ public class maptest extends FragmentActivity implements
 
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
                 if (child != null && gestureDetector.onTouchEvent(e)) {
-                    int position = rv.getChildAdapterPosition(child);
-                    Toast.makeText(getApplicationContext(), (Integer) countries.get(position), Toast.LENGTH_SHORT).show();
+                    final int position = rv.getChildAdapterPosition(child);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(maptest.this);
+                    alertDialogBuilder.setTitle("Call UBER");
+                    alertDialogBuilder.setMessage("Should i call a UBER ride?");
+                    alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                PackageManager pm = getApplicationContext().getPackageManager();
+                                pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
+                                String uri =
+                                        "uber://?action=setPickup&client_id=CPey57Lphu3N8gpYU3M0_MNZ5rh704S0&pickup=my_location&dropoff[formatted_address]=Bangalore%2C%20Karnataka%2C%20India&&dropoff[latitude]=" + laton.get(position) + "&dropoff[longitude]=" + longon.get(position) + "";
+                                Log.i("loction", "uber://?action=setPickup&client_id=CPey57Lphu3N8gpYU3M0_MNZ5rh704S0&pickup=my_location&dropoff[formatted_address]=Bangalore%2C%20Karnataka%2C%20India&&dropoff[latitude]=" + laton.get(position) + "&dropoff[longitude]=" + longon.get(position) + "");
+
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(uri));
+                                startActivity(intent);
+                            } catch (PackageManager.NameNotFoundException e) {
+                                // No Uber app! Open mobile website.
+                                String url = "https://m.uber.com/sign-up?client_id=CPey57Lphu3N8gpYU3M0_MNZ5rh704S0";
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(url));
+                                startActivity(i);
+                            }
+
+                        }
+                    });
+
+                    alertDialogBuilder.show();
+                    Toast.makeText(getApplicationContext(), countries.get(position).toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), laton.get(position).toString(), Toast.LENGTH_SHORT).show();
                 }
 
                 return false;
@@ -468,11 +517,17 @@ public class maptest extends FragmentActivity implements
         // Executed after the complete execution of doInBackground() method
         @Override
         protected void onPostExecute(List<HashMap<String, String>> list) {
-
+            laton = new ArrayList<>();
+            longon = new ArrayList<>();
             int i;
             // Clears all the existing markers
             mMap.clear();
+
             countries.clear();
+            if (!laton.isEmpty())
+                laton.clear();
+            if (!longon.isEmpty())
+                longon.clear();
             for (i = 0; i < list.size(); i++) {
 
                 // Creating a marker
@@ -491,6 +546,9 @@ public class maptest extends FragmentActivity implements
                 String name = hmPlace.get("place_name");
 
                 countries.add(name);
+                laton.add(lat);
+                longon.add(lng);
+
                 Log.i("loop", "Add");
 
                 // String open = hmPlace.get("open");
