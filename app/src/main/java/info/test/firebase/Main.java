@@ -1,5 +1,6 @@
 package info.test.firebase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -65,7 +66,7 @@ public class Main extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new DummyFragment("Starter"), "Starter");
-        adapter.addFrag(new DummyFragment("Main course"), "Main course");
+        adapter.addFrag(new DummyFragment("Maincourse"), "Main course");
         adapter.addFrag(new DummyFragment("Desert"), "Desert");
         viewPager.setAdapter(adapter);
     }
@@ -102,4 +103,18 @@ public class Main extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+    public void onBackPressed() {
+        //Checking for fragment count on backstack
+
+
+
+        super.onBackPressed();
+
+        Intent intent = new Intent(Main.this,maptest.class);
+        startActivity(intent);
+
+
+    }
 }
+

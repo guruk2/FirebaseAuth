@@ -274,7 +274,7 @@ public class maptest extends FragmentActivity implements
             sb.append("&radius=500");
             sb.append("&types=" + type);
             sb.append("&sensor=true");
-            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            sb.append("&key=AIzaSyDvAOBuOpPixuOH4aUAjt1AXjWSIaG5fGA");
             Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
             Log.println(Log.INFO, "url", String.valueOf(sb));
             // Creating a new non-ui thread task to download json data
@@ -313,7 +313,7 @@ public class maptest extends FragmentActivity implements
             sb.append("&radius=500");
             sb.append("&types=" + type);
             sb.append("&sensor=true");
-            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            sb.append("&key=AIzaSyDvAOBuOpPixuOH4aUAjt1AXjWSIaG5fGA");
             Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
             Log.i("url", String.valueOf(sb));
             // Creating a new non-ui thread task to download json data
@@ -333,10 +333,10 @@ public class maptest extends FragmentActivity implements
             resturent = false;
             StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
             sb.append("location=" + latitude + "," + longitude);
-            sb.append("&radius=500");
+            sb.append("&radius=2000");
             sb.append("&types=" + type);
             sb.append("&sensor=true");
-            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            sb.append("&key=AIzaSyDvAOBuOpPixuOH4aUAjt1AXjWSIaG5fGA");
             Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
             Log.println(Log.INFO, "url", String.valueOf(sb));
             // Creating a new non-ui thread task to download json data
@@ -364,10 +364,10 @@ public class maptest extends FragmentActivity implements
             resturent = false;
             StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
             sb.append("location=" + latitude + "," + longitude);
-            sb.append("&radius=1000");
+            sb.append("&radius=2000");
             sb.append("&types=" + type);
             sb.append("&sensor=true");
-            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            sb.append("&key=AIzaSyDvAOBuOpPixuOH4aUAjt1AXjWSIaG5fGA");
             Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
             Log.println(Log.INFO, "url", String.valueOf(sb));
             // Creating a new non-ui thread task to download json data
@@ -388,10 +388,10 @@ public class maptest extends FragmentActivity implements
             resturent = false;
             StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
             sb.append("location=" + latitude + "," + longitude);
-            sb.append("&radius=2000");
+            sb.append("&radius=3000");
             sb.append("&types=" + type);
             sb.append("&sensor=true");
-            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            sb.append("&key=AIzaSyDvAOBuOpPixuOH4aUAjt1AXjWSIaG5fGA");
             Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
             Log.println(Log.INFO, "url", String.valueOf(sb));
             // Creating a new non-ui thread task to download json data
@@ -412,10 +412,10 @@ public class maptest extends FragmentActivity implements
             click = false;
             StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
             sb.append("location=" + latitude + "," + longitude);
-            sb.append("&radius=500");
+            sb.append("&radius=1000");
             sb.append("&types=" + type);
             sb.append("&sensor=true");
-            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            sb.append("&key=AIzaSyDvAOBuOpPixuOH4aUAjt1AXjWSIaG5fGA");
             Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
             Log.println(Log.INFO, "url", String.valueOf(sb));
             // Creating a new non-ui thread task to download json data
@@ -439,7 +439,7 @@ public class maptest extends FragmentActivity implements
             sb.append("&radius=1000");
             sb.append("&types=" + type);
             sb.append("&sensor=true");
-            sb.append("&key=AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc");
+            sb.append("&key=AIzaSyDvAOBuOpPixuOH4aUAjt1AXjWSIaG5fGA");
             Toast.makeText(this, latitude + "," + longitude, Toast.LENGTH_SHORT).show();
             Log.println(Log.INFO, "url", String.valueOf(sb));
             // Creating a new non-ui thread task to download json data

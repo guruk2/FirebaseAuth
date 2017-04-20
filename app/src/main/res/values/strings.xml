@@ -40,6 +40,52 @@
         <item>Restaurant</item>
         <item>Shopping Mall</item>
     </string-array>
+
+    <string-array name="starters">
+        <item>Golden fried babycorn   Rs150</item>
+        <item>Veg Spring Roll         Rs150</item>
+        <item>Baby corn 65            Rs150</item>
+        <item>Panner Chilli           Rs190</item>
+        <item>Mushroom Chilli        Rs190</item>
+        <item>Chinese Soup             Rs80</item>
+        <item>Indian Shorba           Rs80</item>
+        <item>Chicken Lollypop        Rs195</item>
+        <item>Chicken Satya           Rs195</item>
+        <item>Kalmi Kebab(2pc)        Rs170</item>
+    </string-array>
+    <string-array name="desserts">
+        <item>Gulab jamun              Rs70</item>
+        <item>Rasmalai                 Rs70</item>
+        <item>Gajar Halwa              Rs70</item>
+        <item>Pumpkin Halwa            Rs70</item>
+        <item>Fresh Fruit Salad             Rs70</item>
+        <item>Fruit Juice             Rs40</item>
+        <item>Milk Shake            Rs30</item>
+        <item>Mock tails            Rs100</item>
+        <item>IceCream          Rs70</item>
+
+
+    </string-array>
+    <string-array name="Maincourse">
+        <item>Veg Biriyani Rs220</item>
+        <item>Veg Polav Rs120</item>
+        <item>Peas Polav Rs120</item>
+        <item>Veg Haka Noodles Rs120</item>
+        <item>Veg Stew Rs140</item>
+        <item>Veg Rangoli Rs90</item>
+        <item>Sabji ki Milan Rs140</item>
+        <item>Veg Dilruba Rs170</item>
+        <item>Mix Veg Kadai Rs130</item>
+        <item>Veg Mayuri Rs130</item>
+        <item>Nan Rs20</item>
+        <item>Methi Roti Rs20</item>
+        <item>Garlic Nan Rs30</item>
+        <item>Kulcha Rs20</item>
+        <item>Makai Roti Rs20</item>
+        <item>Stuff Roti Rs20</item>
+
+    </string-array>
+
     <string name="google_maps_key" templateMergeStrategy="preserve">
   AIzaSyCRLa4LQZWNQBcjCYcIVYA45i9i8zfClqc
 </string>

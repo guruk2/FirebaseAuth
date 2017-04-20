@@ -1,6 +1,7 @@
 package info.test.firebase;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class DummyFragment extends Fragment {
@@ -47,9 +49,18 @@ public class DummyFragment extends Fragment {
 
 
         ArrayList<String> arrayList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            arrayList.add(title + " Items:Rs " + i);//Adding items to recycler view
-
+        Resources resources= getResources();
+       if(title.equals("Starter"))
+       {
+           Collections.addAll(arrayList, resources.getStringArray(R.array.starters));
+       }
+        if(title.equals("Maincourse"))
+        {
+            Collections.addAll(arrayList, resources.getStringArray(R.array.Maincourse));
+        }
+        if(title.equals("Desert"))
+        {
+            Collections.addAll(arrayList, resources.getStringArray(R.array.desserts));
         }
         RecyclerView_Adapter adapter = new RecyclerView_Adapter(getActivity(), arrayList);
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
