@@ -661,7 +661,7 @@ public class maptest extends FragmentActivity implements
                 // Getting name
                 String name = hmPlace.get("place_name");
 
-                countries.add(name);
+                countries.add(name+System.getProperty("line.separator")+"wwww."+name.toLowerCase().replace(" ", "")+".com");
                 laton.add(lat);
                 longon.add(lng);
 

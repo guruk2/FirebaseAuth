@@ -17,8 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="120sp"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/card_recycler_view"
@@ -38,7 +37,7 @@
         android:background="@color/colorPrimary"
         android:padding="5sp"
         android:src="@drawable/ic_view_list"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -57,76 +56,202 @@
                 android:background="#cc3b60a7"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/buttonCurrent"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="13dp"
-                    android:background="@drawable/current" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/buttonSave"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="13dp"
-                    android:background="@drawable/atm" />
+                    <ImageButton
+                        android:id="@+id/buttonCurrent"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="13dp"
+                        android:background="@drawable/current" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="15sp"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:text="Current location"
+                        android:textSize="9sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/buttonSave"
+                        android:layout_width="50dp"
+                        android:layout_height="50sp"
+                        android:layout_margin="13dp"
+                        android:background="@drawable/atm"
 
 
-                <ImageButton
-                    android:id="@+id/buttonView"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="13dp"
-                    android:background="@drawable/restaurant" />
+                        />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:text="ATM"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/buttonHosp"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="13dp"
-                    android:background="@drawable/icon_hospital" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+                    <ImageButton
+                        android:id="@+id/buttonView"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="13dp"
+                        android:background="@drawable/restaurant" />
 
-                <ImageButton
-                    android:id="@+id/Shopping_mall"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:text="Restaurant"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
-                    android:layout_margin="13sp"
-                    android:background="@drawable/shopping" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/Petrol_station"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    <ImageButton
+                        android:id="@+id/buttonHosp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="13dp"
+                        android:background="@drawable/icon_hospital" />
 
-                    android:layout_margin="13sp"
-                    android:background="@drawable/police_station" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:text="Hospital"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/Bus_stop"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    android:layout_margin="13sp"
-                    android:background="@drawable/bus" />
+                    <ImageButton
+                        android:id="@+id/Shopping_mall"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
 
-                <ImageButton
-                    android:id="@+id/Cafe"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                        android:layout_margin="13sp"
+                        android:background="@drawable/shopping" />
 
-                    android:layout_margin="13sp"
-                    android:background="@drawable/coffee" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:text="Shopping mall"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/logout"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    android:layout_margin="13sp"
-                    android:background="@drawable/logout" />
+                    <ImageButton
+                        android:id="@+id/Petrol_station"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+
+                        android:layout_margin="13sp"
+                        android:background="@drawable/police_station" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:text="Police"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/Bus_stop"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+
+                        android:layout_margin="13sp"
+                        android:background="@drawable/bus" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:text="Bust Stop"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/Cafe"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+
+                        android:layout_margin="13sp"
+                        android:background="@drawable/coffee" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:text="Cafe"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/logout"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+
+                        android:layout_margin="13sp"
+                        android:background="@drawable/logout" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:text="Log out"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
             </LinearLayout>
 
