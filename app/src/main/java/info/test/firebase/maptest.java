@@ -13,12 +13,16 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -86,7 +90,9 @@ public class maptest extends FragmentActivity implements
     private String TAG = "na";
     private ArrayList<Double> laton;
     private ArrayList<Double> longon;
-
+EditText search;
+    RecyclerView.Adapter adapter;
+    TextView empty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,8 +138,8 @@ public class maptest extends FragmentActivity implements
         Petrol_station.setOnClickListener(this);
         Bus_stop.setOnClickListener(this);
         Cafe.setOnClickListener(this);
-
-
+empty=(TextView)findViewById(R.id.empty);
+search =(EditText)findViewById(R.id.etSearch);
 
     }
 
@@ -454,13 +460,49 @@ public class maptest extends FragmentActivity implements
 
         }
     }
+    public void addTextListener(final ArrayList<String> arrayList){
 
+        search.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void onTextChanged(CharSequence query, int start, int before, int count) {
+
+                query = query.toString().toLowerCase();
+
+                final ArrayList<String> filteredList = new ArrayList<>();
+
+                for (int i = 0; i < arrayList.size(); i++) {
+
+                    final String text = arrayList.get(i).toLowerCase();
+                    if (text.contains(query)) {
+
+                        filteredList.add(arrayList.get(i));
+                    }
+                    if (adapter.getItemCount()==0)
+                    {
+                       ;   empty.setVisibility(View.VISIBLE);
+                    }else {
+                        empty.setVisibility(View.GONE);
+                    }
+                }
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(maptest.this));
+                adapter = new DataAdapter(filteredList);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();  // data set changed
+            }
+        });
+    }
     private void initViews() {
 
         countries = new ArrayList<>();
 
-        RecyclerView.Adapter adapter = new DataAdapter(countries);
+     adapter  = new DataAdapter(countries);
         recyclerView.setAdapter(adapter);
+        addTextListener(countries);
 
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(getApplicationContext(), new GestureDetector.SimpleOnGestureListener() {
