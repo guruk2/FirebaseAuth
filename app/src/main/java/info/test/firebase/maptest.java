@@ -519,8 +519,12 @@ search =(EditText)findViewById(R.id.etSearch);
 
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
 
+
+
                 if (child != null && gestureDetector.onTouchEvent(e)) {
                     final int position = rv.getChildAdapterPosition(child);
+
+
                     if (resturent) {
 
                         Intent in = new Intent(getApplicationContext(), Main.class);
@@ -528,9 +532,9 @@ search =(EditText)findViewById(R.id.etSearch);
 
                     } else {
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(maptest.this);
-                        alertDialogBuilder.setTitle("Call UBER");
-                        alertDialogBuilder.setMessage("Should i call a UBER ride?");
-                        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        alertDialogBuilder.setTitle("Option");
+                        alertDialogBuilder.setMessage("Choose?");
+                        alertDialogBuilder.setPositiveButton("Call Uber?", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
@@ -554,9 +558,24 @@ search =(EditText)findViewById(R.id.etSearch);
                             }
                         });
 
+                                alertDialogBuilder.setNegativeButton("Show Direction", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                                                Uri.parse("https://www.google.com/maps/dir/?api=1&origin="+latitude+","+longitude+"&destination="+laton.get(position)+","+longon.get(position)));
+                                        Log.i("loction2", "http://maps.google.com/maps?saddr="+latitude+","+longitude+"&daddr="+laton.get(position)+","+longon.get(position));
+                                        intent.setPackage("com.google.android.apps.maps");
+
+                                        startActivity(intent);
+
+
+                                    }
+                                }
+                        );
+
                         alertDialogBuilder.show();
-                        Toast.makeText(getApplicationContext(), countries.get(position).toString(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(), laton.get(position).toString(), Toast.LENGTH_SHORT).show();
+
                     }
                 }
                 return false;
